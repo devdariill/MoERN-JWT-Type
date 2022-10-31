@@ -1,29 +1,14 @@
-import React, { useState } from 'react'
-import axios from "axios";
-
-function App() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(email, password);
-    const res = await axios.post("http://localhost:3000/api/auth/register", {
-      email,
-      password,
-    });
-    console.log(res);
-  }
-
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+export default function App() {
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit}>
-        <input type="email" onChange={(e)=> setEmail(e.target.value)}/>
-        <input type="password" onChange={(e)=> setPassword(e.target.value)}/>
-        <button>Register</button>
-      </form>
-    </div>
-  );
+    <BrowserRouter>
+        <Routes>
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App
