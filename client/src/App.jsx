@@ -1,33 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import { Form, Formik } from "formik";
+import axios from "axios";
+function LoginUsuariosForm() {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Navbar />
+      <div className="flex items-center justify-center h-screen flex-col gap-y-5">
+        <Formik
+          initialValues={usuario}
+          enableReinitialize={true}
+          onSubmit={async (values, actions) => {
+            try {
+              // const { email, password } = 'values';
+              const nitter = "1233";
+              const tokusu = "ronald";
+              const res1 =
+                await axios.post("/api/usuarios/login",
+                {
+                  nitter,
+                  tokusu,
+                },
+                {
+                  withCredentials: true,                  
+                });
+              console.log("RES1", res1);
+              // const res = await loginUsuario(values);
+              // localStorage.setItem('token',res.data.token)
+            } catch (error) {
+             console.log("🚀 ~ file: Login.usuarios.jsx:29 ~ onSubmit={ ~ error", error)
+            }
+            // actions.resetForm();
+          }}
+        >
+          {/* 1 handleChange  : cambia el estado de initialValues */}
+          {/* 2 handleSunbmit : envia los datos actualues al  */}
+          {/* 3 values : genera los valores iniciales despues de enviar */}
+          {({ handleChange, handleSubmit, values, isSubmiting }) => (
+            <Form onSubmit={handleSubmit}>
+              <div className="grid gap-y-2 items-center ">
+                <label className="text-center rounded-md font-bold py-1">
+                  nitter
+                </label>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  name="nitter"
+                  placeholder="nitter"
+                  className="text-center"
+                  value={values.nitter}
+                />
+                <label className="text-center rounded-md font-bold py-1">
+                  tokusu
+                </label>
+                <input
+                  onChange={handleChange}
+                  type="password"
+                  name="tokusu"
+                  placeholder="tokusu"
+                  className="text-center"
+                  value={values.tokusu}
+                />
+                <button
+                  type="submit"
+                  className="bg-zinc-400 text-black outline-none border-none rounded-lg py-1 mt-3 font-semibold"
+                  disabled={isSubmiting}
+                >
+                  {isSubmiting ? "Saving" : "Login"}
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
-  )
+  );
 }
-
-export default App
+export default LoginUsuariosForm;
