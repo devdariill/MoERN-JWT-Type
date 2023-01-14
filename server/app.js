@@ -1,5 +1,5 @@
-import  express  from "express";
-import  authRoutes  from "./routes/auth.routes";
+import express  from "express";
+import authRoutes  from "./routes/auth.routes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -11,6 +11,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
+app.use(authRoutes);
 
 export default app;
