@@ -1,9 +1,22 @@
 import { Form, Formik } from "formik";
 import axios from "axios";
+import { useState } from "react";
 function LoginUsuariosForm() {
+  const [usuario, setUsuario] = useState({
+    nomusu: "",
+    nitter: "",
+    nivusu: "",
+    estusu: "",
+    codcos: "",
+    cosfij: "",
+    codbod: "",
+    bodfij: "",
+    bodtra: "",
+    agefij: "",
+    empcod: "",
+    tokusu: "",
+  });
   return (
-    <div>
-      <Navbar />
       <div className="flex items-center justify-center h-screen flex-col gap-y-5">
         <Formik
           initialValues={usuario}
@@ -14,7 +27,7 @@ function LoginUsuariosForm() {
               const nitter = "1233";
               const tokusu = "ronald";
               const res1 =
-                await axios.post("/api/usuarios/login",
+                await axios.post("http://localhost:3000/login",
                 {
                   nitter,
                   tokusu,
@@ -71,7 +84,6 @@ function LoginUsuariosForm() {
           )}
         </Formik>
       </div>
-    </div>
   );
 }
 export default LoginUsuariosForm;
